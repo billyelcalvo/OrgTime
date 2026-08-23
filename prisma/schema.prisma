@@ -9,6 +9,7 @@ datasource db {
 }
 model Timer{
   id String @id @default(uuid())
+  name String
   hours int @default(0)
   minutes int @default(0)
   seconds int @default(0)
