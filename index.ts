@@ -1,6 +1,7 @@
 import Express from "express";
 import {PrismaClient} from "./generated/prisma/client";
 import { PrismaPg} from "@prisma/adapter-pg";
+import {router} from "./routes/routes"
 import "dotenv/config";
 
 const app = Express();
@@ -12,5 +13,7 @@ const adapter = new PrismaPg({connectionString: process.env.DATABASE_URL || ""})
 const prisma = new PrismaClient({adapter});
 
 export default prisma;
+
+app.use('/api',router);
 
 

@@ -53,7 +53,7 @@ export const deleteCourse = async(req: Request, res: Response) =>{
     }
     
 }
-export const modifyCourse = async(req: Request, res: Response) =>{
+export const updateCourse = async(req: Request, res: Response) =>{
     try{
         const result = CourseSchema.safeParse({
             id : String(req.params.id),

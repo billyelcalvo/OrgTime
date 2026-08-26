@@ -44,7 +44,7 @@ export const deleteTimer = async(req: Request, res: Response) =>{
         res.status(400).send({msg: "Timer cannot be deleted"})
     }
 }
-export const modifyTimer = async(req: Request, res: Response) =>{
+export const updateTimer = async(req: Request, res: Response) =>{
         const result = TimerSchema.safeParse({
         id: String(req.params.id),
         name : req.body.name,
