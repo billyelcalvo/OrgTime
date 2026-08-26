@@ -6,7 +6,7 @@ export const getAllTimers = async (req : Request, res : Response) =>{
     res.status(200).send(result); 
 }
 export const getTimerById = async(req : Request, res : Response) =>{
-    const result = await prisma.timer.findUnique({where : {id : req.body.id}});
+    const result = await prisma.timer.findUnique({where : {id : String(req.params.id)}});
     res.status(200).send(result);
 }
 export const createTimer = async(req: Request, res: Response) =>{
@@ -46,7 +46,7 @@ export const deleteTimer = async(req: Request, res: Response) =>{
 }
 export const modifyTimer = async(req: Request, res: Response) =>{
         const result = TimerSchema.safeParse({
-        id: req.body.id,
+        id: String(req.params.id),
         name : req.body.name,
         hours : req.body.hourse,
         minutes : req.body.minutes,

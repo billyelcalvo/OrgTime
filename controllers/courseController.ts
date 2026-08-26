@@ -9,7 +9,7 @@ export const getAllCourses = async (req : Request, res : Response) =>{
 export const getCourseById = async(req : Request, res : Response) =>{
     try{
         const result = await prisma.course.findUnique({
-        where: {id : req.body.id}
+        where: {id : String(req.params.id)}
         })
         res.status(202).send(result);
     }
@@ -45,7 +45,7 @@ export const createCourse = async(req: Request, res: Response) =>{
 }
 export const deleteCourse = async(req: Request, res: Response) =>{
     try{
-        await prisma.course.delete({where : req.body.id });
+        await prisma.course.delete({where : {id : String(req.params.id)} });
         res.status(200);
     }
     catch(e){
@@ -56,7 +56,7 @@ export const deleteCourse = async(req: Request, res: Response) =>{
 export const modifyCourse = async(req: Request, res: Response) =>{
     try{
         const result = CourseSchema.safeParse({
-            id : req.body.id,
+            id : String(req.params.id),
             name: req.body.name,
             initTime: req.body.initTime,
             finalTime: req.body.finalTime
