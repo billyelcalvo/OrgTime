@@ -26,7 +26,7 @@ export const createCourse = async(req: Request, res: Response) =>{
         finalTime: req.body.finalTime});
     
         if(!result.success){
-            res.status(400).send(result.error);
+            res.status(400).send({msg: "Object cannot be created"});
         }
         else{
             try{
@@ -68,7 +68,6 @@ export const modifyCourse = async(req: Request, res: Response) =>{
             await prisma.course.update({
                 where: { id : result.data.id},
                 data: {
-                    id: result.data.id,
                     name: result.data.name,
                     initTime:result.data.initTime,
                     finalTime: result.data.finalTime
