@@ -5,23 +5,26 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon --exec tsx index.ts"
+    "dev": "nodemon --exec tsx index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^9.1.0",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "@types/pg": "^8.23.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "pg": "^8.23.0",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.14",
     "prisma": "^7.9.1",
     "tsx": "^4.23.12",
