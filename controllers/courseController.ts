@@ -29,18 +29,55 @@ export const createCourse = async(req: Request, res: Response) =>{
             res.status(400).send(result.error);
         }
         else{
-            await prisma.course.create({data: {
+            try{
+                await prisma.course.create({data: {
                 name : result.data.name,
                 initTime: result.data.initTime,
                 finalTime: result.data.finalTime
             }});
-            res.status(201);
+            res.status(201).send(result.data);
+
+            }catch(e){
+                res.status(400).send({msg: "Object cannot be created"});
+            }
+
         }
 }
 export const deleteCourse = async(req: Request, res: Response) =>{
-    const result = await prisma.course.delete({where : req.body.id });
-    return result 
+    try{
+        await prisma.course.delete({where : req.body.id });
+        res.status(200);
+    }
+    catch(e){
+        res.status(400).send({msg : "Object not found"});
+    }
+    
 }
 export const modifyCourse = async(req: Request, res: Response) =>{
-
+    try{
+        const result = CourseSchema.safeParse({
+            id : req.body.id,
+            name: req.body.name,
+            initTime: req.body.initTime,
+            finalTime: req.body.finalTime
+        });
+        if(!result.success){
+            res.status(400);
+        }
+        else{
+            await prisma.course.update({
+                where: { id : result.data.id},
+                data: {
+                    id: result.data.id,
+                    name: result.data.name,
+                    initTime:result.data.initTime,
+                    finalTime: result.data.finalTime
+                }
+            })
+            res.status(200).send(result.data);
+        }
+    }
+    catch(e){
+        res.status(400).send({msg: "Object cannot be modifier"});
+    }
 }
