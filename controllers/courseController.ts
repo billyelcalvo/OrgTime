@@ -4,17 +4,17 @@ import prisma from "../index";
 
 export const getAllCourses = async (req : Request, res : Response) =>{
     const result = await prisma.course.findMany()
-    res.status(200).send(result);
+    return res.status(200).send(result);
 }
 export const getCourseById = async(req : Request, res : Response) =>{
     try{
         const result = await prisma.course.findUnique({
         where: {id : String(req.params.id)}
         })
-        res.status(202).send(result);
+        return res.status(202).send(result);
     }
     catch(e){
-        res.status(404).send({msg : "Course not found"});
+        return res.status(404).send({msg : "Course not found"});
     }
 
     
@@ -26,7 +26,7 @@ export const createCourse = async(req: Request, res: Response) =>{
         finalTime: req.body.finalTime});
     
         if(!result.success){
-            res.status(400).send({msg: "Object cannot be created"});
+            return res.status(400).send({msg: "Object cannot be created"});
         }
         else{
             try{
@@ -35,10 +35,10 @@ export const createCourse = async(req: Request, res: Response) =>{
                 initTime: result.data.initTime,
                 finalTime: result.data.finalTime
             }});
-            res.status(201).send(result.data);
+            return res.status(201).send(result.data);
 
             }catch(e){
-                res.status(400).send({msg: "Object cannot be created"});
+                return res.status(400).send({msg: "Object cannot be created"});
             }
 
         }
