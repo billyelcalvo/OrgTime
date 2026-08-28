@@ -3,7 +3,8 @@ import "../zod-extend"
 export const UserSchema = z.object({
     id : z.uuid(),
     name: z.string(),
-    email: z.email()
+    email: z.email(),
+    password: z.string().min(4).max(32)
 }).openapi("User"); 
 
 export const CreateUserSchema = UserSchema.omit({id: true}).openapi("CreateUser");
