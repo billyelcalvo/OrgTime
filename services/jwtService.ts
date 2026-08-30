@@ -8,7 +8,7 @@ export const jwtSign =  (email : string)=>{
 export const jwtVerify = (token: string) => {
   try {
     const decoded = jwt.verify(token, process.env.SECRET!);
-    return decoded; // contiene { data: email, iat, exp } (o { sub: email, ... } si usaste sub)
+    return decoded;
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       throw new Error("Token expirado");

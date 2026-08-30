@@ -43,7 +43,6 @@ export const login = async (req : Request, res: Response)=>{
     if(!result.success){
         return res.status(400).send({msg: "Email or password is incorrect. Try again or create an account"});
     }
-    else{
         try{
             const user = await prisma.user.findUnique({
                 where: {
@@ -62,5 +61,4 @@ export const login = async (req : Request, res: Response)=>{
         }catch(e){
             return res.status(400).send({msg: "Email or password is incorrect. Try again or create an account"});
         }
-    }
 }

@@ -6,7 +6,8 @@ export const CourseSchema = z.object({
     initTime: z.iso.time({precision: 0}).transform((str)=> new Date(`1970-01-01T${str}Z`))
     .openapi({example: "08:00:00"}),
     finalTime: z.iso.time({precision: 0}).transform((str)=> new Date(`1970-01-01T${str}Z`))
-    .openapi({example: "10:00:00"})
+    .openapi({example: "10:00:00"}),
+    userId: z.uuid()
 }).openapi("Course");
 
 export type Course = z.infer<typeof CourseSchema>;
