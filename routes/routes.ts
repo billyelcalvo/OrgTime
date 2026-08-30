@@ -1,7 +1,12 @@
 import {Router} from "express";
 import * as courseController from "../controllers/courseController"
 import * as timerController from "../controllers/timerController"
+
+import {authMiddleware} from "../middlewares/authMiddleware"
+
 export const router = Router();
+
+router.use(authMiddleware);
 
 router.get('/courses', courseController.getAllCourses);
 router.get('/courses/:id', courseController.getCourseById);

@@ -3,11 +3,11 @@ import prisma from "../index"
 import {TimerSchema} from "../model/timer"
 export const getAllTimers = async (req : Request, res : Response) =>{
     const result = await prisma.timer.findMany();
-    res.status(200).send(result); 
+    res.status(200).json(result); 
 }
 export const getTimerById = async(req : Request, res : Response) =>{
     const result = await prisma.timer.findUnique({where : {id : String(req.params.id)}});
-    return res.status(200).send(result);
+    return res.status(200).json(result);
 }
 export const createTimer = async(req: Request, res: Response) =>{
     const result = TimerSchema.safeParse({
@@ -18,7 +18,7 @@ export const createTimer = async(req: Request, res: Response) =>{
         userId: req.body.userId
     });
     if(!result.success){
-        return res.status(400).send({msg: "Timer cannot be created"});
+        return res.status(400).json({msg: "Timer cannot be created"});
     }
     else{
         try{
@@ -31,19 +31,19 @@ export const createTimer = async(req: Request, res: Response) =>{
                     userId: result.data.userId
                 }
             });  
-            return res.status(201).send(result.data);    
+            return res.status(201).json(result.data);    
         }catch(e){
-           return res.status(400).send({msg: "Timer cannot be created"});
+           return res.status(400).json({msg: "Timer cannot be created"});
         }
     }
 }
 export const deleteTimer = async(req: Request, res: Response) =>{
     try{
         await prisma.timer.delete({where: {id : req.body.id}})
-        return res.status(200).send();
+        return res.status(200).end();
     }
     catch(e){
-        return res.status(400).send({msg: "Timer cannot be deleted"})
+        return res.status(400).json({msg: "Timer cannot be deleted"})
     }
 }
 export const updateTimer = async(req: Request, res: Response) =>{
@@ -55,7 +55,7 @@ export const updateTimer = async(req: Request, res: Response) =>{
         seconds : req.body.secods
     });
     if(!result.success){
-        return res.status(400).send({msg: "Timer cannot be modifier"});
+        return res.status(400).json({msg: "Timer cannot be modifier"});
     }
     else{
         try{
@@ -68,9 +68,9 @@ export const updateTimer = async(req: Request, res: Response) =>{
                     seconds: result.data.seconds
                 }
             });  
-            return res.status(200).send(result.data);    
+            return res.status(200).json(result.data);    
         }catch(e){
-           return res.status(400).send({msg: "Timer cannot be modifier"});
+           return res.status(400).json({msg: "Timer cannot be modifier"});
         }
     }
 }

@@ -37,10 +37,10 @@ export const createCourse = async(req: Request, res: Response) =>{
                 finalTime: result.data.finalTime,
                 userId: result.data.userId
             }});
-            return res.status(201).send(result.data);
+            return res.status(201).json(result.data);
 
             }catch(e){
-                return res.status(400).send({msg: "Object cannot be created"});
+                return res.status(400).json({msg: "Object cannot be created"});
             }
 
         }
@@ -48,10 +48,10 @@ export const createCourse = async(req: Request, res: Response) =>{
 export const deleteCourse = async(req: Request, res: Response) =>{
     try{
         await prisma.course.delete({where : {id : String(req.params.id)} });
-        res.status(200);
+        res.status(200).end();
     }
     catch(e){
-        res.status(400).send({msg : "Object not found"});
+        res.status(400).json({msg : "Object not found"});
     }
     
 }
@@ -64,7 +64,7 @@ export const updateCourse = async(req: Request, res: Response) =>{
             finalTime: req.body.finalTime
         });
         if(!result.success){
-            res.status(400);
+            res.status(400).end();
         }
         else{
             await prisma.course.update({
@@ -79,6 +79,6 @@ export const updateCourse = async(req: Request, res: Response) =>{
         }
     }
     catch(e){
-        res.status(400).send({msg: "Object cannot be modifier"});
+        res.status(400).json({msg: "Object cannot be modifier"});
     }
 }
