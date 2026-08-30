@@ -26,7 +26,8 @@ export const createTimer = async(req: Request, res: Response) =>{
                     name: result.data.name,
                     hours: result.data.hours,
                     minutes: result.data.minutes,
-                    seconds: result.data.seconds
+                    seconds: result.data.seconds,
+                    userId: //TO-DO add 
                 }
             });  
             return res.status(201).send(result.data);    
