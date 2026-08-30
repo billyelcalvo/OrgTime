@@ -12,6 +12,8 @@ export const CreateUserSchema = UserSchema.omit({id: true})
     password: z.string().min(5).max(36)
 }).openapi("CreateUser");
 
-export const LoginUser = UserSchema.omit({name : true}).openapi("LoginUser");
+export const LoginUser = UserSchema.omit({id: true, name : true}).
+extend({password: z.string().min(5).max(36)}).openapi("LoginUser");
+
 export type User = z.infer<typeof UserSchema>
 export type CreateUser = z.infer<typeof CreateUserSchema>

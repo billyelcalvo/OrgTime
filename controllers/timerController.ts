@@ -14,7 +14,8 @@ export const createTimer = async(req: Request, res: Response) =>{
         name : req.body.name,
         hours : req.body.hours,
         minutes : req.body.minutes,
-        seconds : req.body.seconds
+        seconds : req.body.seconds,
+        userId: req.body.userId
     });
     if(!result.success){
         return res.status(400).send({msg: "Timer cannot be created"});
@@ -27,7 +28,7 @@ export const createTimer = async(req: Request, res: Response) =>{
                     hours: result.data.hours,
                     minutes: result.data.minutes,
                     seconds: result.data.seconds,
-                    userId: //TO-DO add 
+                    userId: result.data.userId
                 }
             });  
             return res.status(201).send(result.data);    

@@ -36,7 +36,31 @@ export const login = async (req : Request, res: Response)=>{
     const result = CreateUserSchema.safeParse(
         {
             data:{
-                //TO-DO: Probably need to create or change schemas for login and register
+                email: req.body.email,
+                password: req.body.password
             }
-        })
+        });
+    if(!result.success){
+        return res.status(400).send({msg: "Email or password is incorrect. Try again or create an account"});
+    }
+    else{
+        try{
+            const user = await prisma.user.findUnique({
+                where: {
+                    email : result.data.email
+                }
+            });
+            if(!user){
+                return res.status(400).send({msg: "Email or password is incorrect. Try again or create an account"});
+            }
+            const verify = await hashCompare(result.data.password, user.password);
+            if(!verify){
+                return res.status(400).send({msg: "Email or password is incorrect. Try again or create an account"});
+            }
+            return //TO-DO return jwt
+
+        }catch(e){
+            return res.status(400).send({msg: "Email or password is incorrect. Try again or create an account"});
+        }
+    }
 }
