@@ -1,7 +1,7 @@
 import {Router} from "express";
 import * as courseController from "../controllers/courseController"
 import * as timerController from "../controllers/timerController"
-
+import {login, register} from "../controllers/userController"
 import {authMiddleware} from "../middlewares/authMiddleware"
 
 export const router = Router();
@@ -19,3 +19,6 @@ router.get('/timers/:id', timerController.getTimerById);
 router.post('/timers', timerController.createTimer);
 router.put('/timers/:id',timerController.updateTimer);
 router.delete('/timers/:id', timerController.deleteTimer);
+
+router.post('/login',login);
+router.post('/register', register);
