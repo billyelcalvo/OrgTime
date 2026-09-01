@@ -181,6 +181,33 @@ registry.registerPath({
   },
 });
 
+registry.registerPath({
+  method: 'post',
+  path: '/user/register',
+  description: 'Crea un usuario',
+  responses: {
+    201: { description: 'Usuario creado' },
+    400: {
+      description: 'Usuario no pudo ser creado',
+      content: { 'application/json': { schema: ErrorSchema } },
+    },
+  },
+});
+registry.registerPath({
+  method: 'post',
+  path: '/user/login',
+  description: 'Logea un usuario',
+  responses: {
+    201: { description: 'Usuario logeado' },
+    400: {
+      description: 'Email o password incorrectos',
+      content: { 'application/json': { schema: ErrorSchema } },
+    },
+  },
+});
+
+
+
 export function generateOpenApiDocument() {
   const generator = new OpenApiGeneratorV3(registry.definitions);
   return generator.generateDocument({
